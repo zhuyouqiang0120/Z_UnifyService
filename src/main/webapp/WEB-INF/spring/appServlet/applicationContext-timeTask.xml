@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" >
+		
+	   <bean class="com.zens.unify.task.Init" init-method="init"/><!-- 初始化执行方法 -->
+       <bean id="weatherJob" class="com.zens.unify.task.WeatherJob"/><!-- 天气 -->
+       <!-- <bean id="constellationJob" class="com.zens.unify.task.ConstellationJob" /> --><!-- 星座运势 -->
+       <bean id="lotteryJob" class="com.zens.unify.task.LotteryJob" /><!--中国彩票开奖结果  -->
+       <bean id="oil_cityJob" class="com.zens.unify.task.OilCityJob" /><!-- 油价 -->
+       <bean id="rmbquotJob" class="com.zens.unify.task.RmbquotJob" /><!-- 货币汇率 -->
+       <bean id="shgoldJob" class="com.zens.unify.task.ShgoldJob" /><!-- 黄金数据 -->
+       <bean id="zcgjjJob" class="com.zens.unify.task.ZcgjjJob" /><!-- 重仓股基金 -->
+       <bean id="airJob" class="com.zens.unify.task.AirJob" /><!-- 空气质量 -->
+       <bean id="smMailJob" class="com.zens.unify.task.shanghai.SMMailJob" /><!-- 上海市民信箱 -->
+       
+       
+       <bean id="menuJob" class="com.zens.unify.task.shanghai.MenuJob" /><!-- 节目单 -->
+	   
+	   <bean id="weatherJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="weatherJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <!-- <bean id="constellationJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref ="constellationJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean> -->
+	   <bean id="lotteryJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="lotteryJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="oil_cityJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="oil_cityJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="rmbquotJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="rmbquotJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="shgoldJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="shgoldJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="zcgjjJobDetail"   class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="zcgjjJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="airJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="airJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="smMailJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="smMailJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   <bean id="menuJobDetail" 
+	       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	       <property name="targetObject" ref="menuJob"/>
+	       <property name="targetMethod" value="grab" />
+	   </bean>
+	   
+	   <bean id="weatherJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="weatherJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6,12,18,21 * * ?</value><!-- 每天的6点、12点、18点、21点都执行一次   0 0 6,12,18,21 * * ? -->
+	       </property>
+	   </bean>
+	   
+	   <!-- <bean id="constellationJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="constellationJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6 * * ?</value>每天的6点都执行一次
+	       </property>
+	   </bean> -->
+	   
+	   <bean id="lotteryJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="lotteryJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6,12,18,21 * * ?</value><!-- 每天的6点、12点、18点、21点都执行一次   0 0 6,12,18,21 * * ? -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="oil_cityJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="oil_cityJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6 * * ?</value><!-- 每天的6点执行一次-->
+	       </property>
+	   </bean>
+	   
+	   <bean id="rmbquotJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="rmbquotJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6 * * ?</value><!-- 每天的6点执行一次 -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="shgoldJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="shgoldJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6 * * ?</value><!-- 每天的6执行一次 -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="zcgjjJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="zcgjjJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6 * * ?</value><!-- 每天的6点执行一次   -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="airJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="airJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 6,12,18,21 * * ?</value><!-- 每天的6点、12点、18点、21点都执行一次   0 0 6,12,18,21 * * ? -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="smMailJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="smMailJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0 12 * * ?</value><!-- 每天的12点执行一次  -->
+	       </property>
+	   </bean>
+	   
+	   <bean id="menuJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	       <property name="jobDetail" ref="menuJobDetail"/>
+	       <property name="cronExpression">
+	           <value>0 0/10 * * * ?</value><!-- 每天10min执行一次  -->
+	       </property>
+	   </bean>
+
+	   <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	       <property name="triggers">
+	           <list>
+	               <ref local="weatherJobCronTrigger"/>
+	               <ref local="airJobCronTrigger"/>
+	               <ref local="oil_cityJobCronTrigger"/>
+	               <ref local="lotteryJobCronTrigger"/>
+	              <!--  <ref local="constellationJobCronTrigger"/> -->
+	               <ref local="shgoldJobCronTrigger"/>
+	               <ref local="rmbquotJobCronTrigger"/>
+	               <ref local="smMailJobCronTrigger"/>	     
+	               <ref local="menuJobCronTrigger"/>	                
+	           </list>
+	       </property>
+	   </bean>
+</beans>

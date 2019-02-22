@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <classPathEntry location="D:\Users\vector's\.m2\repository\mysql\mysql-connector-java\5.1.18/mysql-connector-java-5.1.18.jar"/>
+  <context id="context1" >
+    <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.0.200:3306/zens_unify_interface_service" userId="root" password="zensvision20140318" /> -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.100:3306/zens_unify_interface_service" userId="swatapp" password="swatapp" />
+    <javaModelGenerator targetPackage="com.zens.unify.entity" targetProject="src" />
+    <sqlMapGenerator targetPackage="com.zens.unify.mapper.sql" targetProject="src" />
+    <javaClientGenerator targetPackage="com.zens.unify.mapper" targetProject="src" type="XMLMAPPER" />
+    <table schema="user" tableName="user" ></table>
+  </context>
+</generatorConfiguration>
